@@ -18,9 +18,18 @@ class ImageListCollectionViewController: UIViewController {
 
     setup()
 
-    // Register cell classes
-    let mosaicLayout = MosaicLayout()
-    collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: mosaicLayout)
+    if UIDevice.current.userInterfaceIdiom == .pad {
+
+      let gridLayout = GridLayout()
+      gridLayout.delegate = self
+      collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: gridLayout)
+      collectionView!.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    } else {
+
+      let mosaicLayout = MosaicLayout()
+      collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: mosaicLayout)
+    }
+
     collectionView.backgroundColor = UIColor.appBackgroundColor
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     collectionView.alwaysBounceVertical = true
@@ -47,6 +56,13 @@ class ImageListCollectionViewController: UIViewController {
         }
       }
     }
+  }
+}
+
+extension ImageListCollectionViewController: GridLayoutDelegate {
+  func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+
+    return 300
   }
 }
 
