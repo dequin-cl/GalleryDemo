@@ -12,6 +12,7 @@ class ImageListCollectionViewController: UIViewController {
   private var collectionView: UICollectionView!
   private var imageListVM = ImageListViewModel()
   private var imageLoader = ImageLoader()
+  private var refresher: UIRefreshControl!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -43,7 +44,10 @@ class ImageListCollectionViewController: UIViewController {
 
     self.view.addSubview(collectionView)
 
-    // Do any additional setup after loading the view.
+    refresher = UIRefreshControl()
+    refresher.tintColor = .white
+    refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
+    collectionView.refreshControl = refresher
   }
 
   private func setup() {
@@ -53,9 +57,18 @@ class ImageListCollectionViewController: UIViewController {
 
         DispatchQueue.main.async {
           self?.collectionView.reloadData()
+          self?.stopRefresher()
         }
       }
     }
+  }
+
+  @objc private func loadData() {
+    setup()
+  }
+
+  private func stopRefresher() {
+    collectionView.refreshControl?.endRefreshing()
   }
 }
 

@@ -9,9 +9,13 @@ import Foundation
 
 struct ImageListViewModel {
   private var imageViewModels = [ImageViewModel]()
+  private var identifierList = [String]()
 
   mutating func addImageViewModel(_ vm: ImageViewModel) {
-    self.imageViewModels.append(vm)
+    if !identifierList.contains(vm.identifier) {
+      self.imageViewModels.append(vm)
+      identifierList.append(vm.identifier)
+    }
   }
 
   mutating func processAlbums(albums: Collection) {
