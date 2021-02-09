@@ -21,11 +21,11 @@ struct Album: Decodable {
 
 struct Collection: Decodable {
   private (set) var albums: [Album]
-  
+
   init(data: Data) throws {
       albums = try JSONDecoder().decode(Array<Album>.self, from: data)
   }
-  
+
   subscript(index: Int) -> Album {
     return albums[index]
   }

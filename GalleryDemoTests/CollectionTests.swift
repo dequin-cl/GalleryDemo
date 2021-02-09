@@ -18,11 +18,11 @@ class CollectionTests: XCTestCase {
       }
 
       let data = try Data(contentsOf: jsonURL)
-      
+
       let collection = try Collection(data: data)
-      
+
       XCTAssertNotNil(collection)
-      
+
       XCTAssertEqual(collection[2].title, "officia porro iure quia iusto qui ipsa ut modi")
     }
 

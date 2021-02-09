@@ -7,9 +7,8 @@
 
 import UIKit
 
-
 class ImageDetailViewController: UIViewController {
-  
+
   private var imageView = UIImageView()
   private var progressBar = UIProgressView()
   private var observation: NSKeyValueObservation?
@@ -18,36 +17,36 @@ class ImageDetailViewController: UIViewController {
       processImageURL()
     }
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     imageView.frame = view.bounds
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
     imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+
     imageView.image = UIImage.withColor(.white, size: imageView.frame.size)
-    
+
     view.addSubview(imageView)
-    
+
     progressBar.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(progressBar)
-    
+
     progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     progressBar.heightAnchor.constraint(equalToConstant: 2).isActive = true
-    
+
     progressBar.progress = 0.0
   }
-  
+
   private func processImageURL() {
     guard let imageURL = imageURL else { return }
-    
+
     let url = URL(string: imageURL)!
-    let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-      
+    let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+
       if let error = error {
         print(error.localizedDescription)
       } else if let data = data {
@@ -61,7 +60,7 @@ class ImageDetailViewController: UIViewController {
     }
     task.resume()
   }
-  
+
   private func updateProgress(progress: Double) {
     DispatchQueue.main.async {
 
@@ -72,12 +71,11 @@ class ImageDetailViewController: UIViewController {
     }
 
   }
-  
+
   deinit {
     observation?.invalidate()
   }
 }
-
 
 #if DEBUG
 import SwiftUI
@@ -86,7 +84,7 @@ struct ImageDetailVCRepresentable: UIViewControllerRepresentable {
   func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
     // leave this empty
   }
-  
+
   @available(iOS 13.0.0, *)
   func makeUIViewController(context: Context) -> UIViewController {
     ImageDetailViewController()
@@ -101,11 +99,10 @@ struct InfoVCPreview: PreviewProvider {
 }
 #endif
 
-
 extension UIImage {
   static func withColor(_ color: UIColor, size: CGSize) -> UIImage {
     var capturedImage: UIImage!
-    
+
     UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
     if let context = UIGraphicsGetCurrentContext() {
       context.setFillColor(color.cgColor)
