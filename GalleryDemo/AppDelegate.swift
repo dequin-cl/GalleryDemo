@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
     } else {
       window = UIWindow(frame: UIScreen.main.bounds)
-      let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
-      window?.rootViewController = vc
+      window?.rootViewController = UINavigationController(rootViewController: ImageListCollectionViewController())
       window?.makeKeyAndVisible()
+      
     }
     return true
   }
