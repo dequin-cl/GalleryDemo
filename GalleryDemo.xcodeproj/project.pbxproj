@@ -21,9 +21,9 @@
 		2C2B49D025D250E100F2D370 /* URLProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B49CF25D250E100F2D370 /* URLProtocolMock.swift */; };
 		2C2B49D525D257F500F2D370 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B49D425D257F500F2D370 /* ImageDetailViewController.swift */; };
 		2C2B49E725D30BEB00F2D370 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B49E625D30BEB00F2D370 /* GridLayout.swift */; };
+		2C2B49FC25D425BE00F2D370 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B49FB25D425BE00F2D370 /* Image.swift */; };
 		2C91E2E625CEE999003F6A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E2E525CEE999003F6A76 /* AppDelegate.swift */; };
 		2C91E2E825CEE999003F6A76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E2E725CEE999003F6A76 /* SceneDelegate.swift */; };
-		2C91E2EA25CEE999003F6A76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E2E925CEE999003F6A76 /* ViewController.swift */; };
 		2C91E2EF25CEE99A003F6A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C91E2EE25CEE99A003F6A76 /* Assets.xcassets */; };
 		2C91E2F225CEE99A003F6A76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C91E2F025CEE99A003F6A76 /* LaunchScreen.storyboard */; };
 		2C91E30825CEE99A003F6A76 /* GalleryDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E30725CEE99A003F6A76 /* GalleryDemoUITests.swift */; };
@@ -64,10 +64,10 @@
 		2C2B49CF25D250E100F2D370 /* URLProtocolMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLProtocolMock.swift; sourceTree = "<group>"; };
 		2C2B49D425D257F500F2D370 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		2C2B49E625D30BEB00F2D370 /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		2C2B49FB25D425BE00F2D370 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		2C91E2E225CEE999003F6A76 /* GalleryDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GalleryDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C91E2E525CEE999003F6A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C91E2E725CEE999003F6A76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2C91E2E925CEE999003F6A76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C91E2EE25CEE99A003F6A76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C91E2F125CEE99A003F6A76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C91E2F325CEE99A003F6A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -165,6 +165,7 @@
 				2C0FA64625D2142300A987E9 /* CGRect.swift */,
 				2C0FA64B25D2142D00A987E9 /* UIColor.swift */,
 				2C0FA66325D2281400A987E9 /* ImageLoader.swift */,
+				2C2B49FB25D425BE00F2D370 /* Image.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -214,7 +215,6 @@
 				2C0FA62425D2111500A987E9 /* Scenes */,
 				2C91E2E525CEE999003F6A76 /* AppDelegate.swift */,
 				2C91E2E725CEE999003F6A76 /* SceneDelegate.swift */,
-				2C91E2E925CEE999003F6A76 /* ViewController.swift */,
 				2C91E2EE25CEE99A003F6A76 /* Assets.xcassets */,
 				2C91E2F025CEE99A003F6A76 /* LaunchScreen.storyboard */,
 				2C91E2F325CEE99A003F6A76 /* Info.plist */,
@@ -376,9 +376,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C2B49E725D30BEB00F2D370 /* GridLayout.swift in Sources */,
-				2C91E2EA25CEE999003F6A76 /* ViewController.swift in Sources */,
 				2C2B49D525D257F500F2D370 /* ImageDetailViewController.swift in Sources */,
 				2C0FA62925D2115400A987E9 /* ImageListViewModel.swift in Sources */,
+				2C2B49FC25D425BE00F2D370 /* Image.swift in Sources */,
 				2C0FA66425D2281400A987E9 /* ImageLoader.swift in Sources */,
 				2C0FA62E25D2118100A987E9 /* ImageListCollectionViewController.swift in Sources */,
 				2C0FA63425D211CF00A987E9 /* ImageCollectionViewCell.swift in Sources */,

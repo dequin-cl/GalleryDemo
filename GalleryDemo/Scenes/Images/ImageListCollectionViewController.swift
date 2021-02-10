@@ -17,40 +17,14 @@ class ImageListCollectionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    setup()
+    getData()
 
-    if UIDevice.current.userInterfaceIdiom == .pad {
+    configureCollection()
 
-      let gridLayout = GridLayout()
-      gridLayout.delegate = self
-      collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: gridLayout)
-      collectionView!.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    } else {
-
-      let mosaicLayout = MosaicLayout()
-      collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: mosaicLayout)
-    }
-
-    collectionView.backgroundColor = UIColor.appBackgroundColor
-    collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    collectionView.alwaysBounceVertical = true
-    collectionView.indicatorStyle = .white
-
-    collectionView.delegate = self
-    collectionView.dataSource = self
-
-    collectionView.register(ImageCollectionViewCell.self,
-                            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-
-    self.view.addSubview(collectionView)
-
-    refresher = UIRefreshControl()
-    refresher.tintColor = .white
-    refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
-    collectionView.refreshControl = refresher
+    configureRefresher()
   }
 
-  private func setup() {
+  private func getData() {
     Webservice.load { [weak self] albums in
       if let collection = albums {
         self?.imageListVM.processAlbums(albums: collection)
@@ -62,14 +36,49 @@ class ImageListCollectionViewController: UIViewController {
       }
     }
   }
-
-  @objc private func loadData() {
-    setup()
+  
+  private func configureCollection() {
+    if UIDevice.current.userInterfaceIdiom == .pad {
+      
+      let gridLayout = GridLayout()
+      gridLayout.delegate = self
+      collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: gridLayout)
+      collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    } else {
+      
+      let mosaicLayout = MosaicLayout()
+      collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: mosaicLayout)
+    }
+    
+    collectionView.backgroundColor = UIColor.appBackgroundColor
+    collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    collectionView.alwaysBounceVertical = true
+    collectionView.indicatorStyle = .white
+    
+    collectionView.delegate = self
+    collectionView.dataSource = self
+    
+    collectionView.register(ImageCollectionViewCell.self,
+                            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+    
+    self.view.addSubview(collectionView)
   }
-
+  
+  private func configureRefresher() {
+    refresher = UIRefreshControl()
+    refresher.tintColor = .white
+    refresher.addTarget(self, action: #selector(loadMoreData), for: .valueChanged)
+    collectionView.refreshControl = refresher
+  }
+  
   private func stopRefresher() {
     collectionView.refreshControl?.endRefreshing()
   }
+
+  @objc private func loadMoreData() {
+    getData()
+  }
+
 }
 
 extension ImageListCollectionViewController: GridLayoutDelegate {

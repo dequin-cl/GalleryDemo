@@ -13,16 +13,20 @@ class ImageCollectionViewCell: UICollectionViewCell {
   var imageView = UIImageView()
   private(set) var imageIdentifier: String?
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    self.clipsToBounds = true
-    self.autoresizesSubviews = true
-
+  fileprivate func configureMainImageView() {
     imageView.frame = self.bounds
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
     imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     self.addSubview(imageView)
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    self.clipsToBounds = true
+    self.autoresizesSubviews = true
+
+    configureMainImageView()
 
     // Use a random background color.
     let redColor = CGFloat(arc4random_uniform(255)) / 255.0

@@ -42,44 +42,14 @@ class GridLayout: UICollectionViewLayout {
   override var collectionViewContentSize: CGSize {
     return CGSize(width: contentWidth, height: contentHeight)
   }
-
+  
   override func prepare() {
     super.prepare()
     // Only calculate the layout attributes if cache is empty and the collection view exists
     guard cache.isEmpty == true, let collectionView = collectionView, let delegate = delegate else {
       return
     }
-    let currentNumberOfColumns = numberOfColumns
-    let columnWidth = contentWidth / CGFloat(currentNumberOfColumns)
-    var xOffset = [CGFloat]()
-
-    for column in 0 ..< currentNumberOfColumns {
-      xOffset.append(CGFloat(column) * columnWidth)
-    }
-    var column = 0
-    var yOffset = [CGFloat](repeating: 0, count: currentNumberOfColumns)
-
-    for item in 0 ..< collectionView.numberOfItems(inSection: 0) {
-
-      let indexPath = IndexPath(item: item, section: 0)
-
-      // Asks the delegate for the height of the picture and the annotation and calculates the cell frame.
-      let photoHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
-      let height = cellPadding * 2 + photoHeight
-      let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
-      let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
-
-      // Creates an UICollectionViewLayoutItem with the frame and add it to the cache
-      let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-      attributes.frame = insetFrame
-      cache.append(attributes)
-
-      // Updates the collection view content height
-      contentHeight = max(contentHeight, frame.maxY)
-      yOffset[column] = yOffset[column] + height
-
-      column = column < (currentNumberOfColumns - 1) ? (column + 1) : 0
-    }
+    calculateCachedAttributes(collectionView, delegate)
   }
 
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -108,4 +78,37 @@ class GridLayout: UICollectionViewLayout {
     cache.removeAll()
   }
 
+  private func calculateCachedAttributes(_ collectionView: UICollectionView, _ delegate: GridLayoutDelegate) {
+    let currentNumberOfColumns = numberOfColumns
+    let columnWidth = contentWidth / CGFloat(currentNumberOfColumns)
+    var xOffset = [CGFloat]()
+    
+    for column in 0 ..< currentNumberOfColumns {
+      xOffset.append(CGFloat(column) * columnWidth)
+    }
+    var column = 0
+    var yOffset = [CGFloat](repeating: 0, count: currentNumberOfColumns)
+    
+    for item in 0 ..< collectionView.numberOfItems(inSection: 0) {
+      
+      let indexPath = IndexPath(item: item, section: 0)
+      
+      // Asks the delegate for the height of the picture and the annotation and calculates the cell frame.
+      let photoHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
+      let height = cellPadding * 2 + photoHeight
+      let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
+      let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+      
+      // Creates an UICollectionViewLayoutItem with the frame and add it to the cache
+      let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+      attributes.frame = insetFrame
+      cache.append(attributes)
+      
+      // Updates the collection view content height
+      contentHeight = max(contentHeight, frame.maxY)
+      yOffset[column] = yOffset[column] + height
+      
+      column = column < (currentNumberOfColumns - 1) ? (column + 1) : 0
+    }
+  }
 }

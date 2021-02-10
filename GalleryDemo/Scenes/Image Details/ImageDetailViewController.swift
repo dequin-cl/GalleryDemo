@@ -17,27 +17,35 @@ class ImageDetailViewController: UIViewController {
       processImageURL()
     }
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    configureMainImageView()
+
+    configureProgressBar()
+  }
+  
+  private func configureMainImageView() {
     imageView.frame = view.bounds
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
     imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+    
     imageView.image = UIImage.withColor(.white, size: imageView.frame.size)
-
+    
     view.addSubview(imageView)
-
+  }
+  
+  private func configureProgressBar() {
     progressBar.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(progressBar)
-
+    
     progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     progressBar.heightAnchor.constraint(equalToConstant: 2).isActive = true
-
+    
     progressBar.progress = 0.0
   }
 
@@ -78,6 +86,10 @@ class ImageDetailViewController: UIViewController {
 }
 
 #if DEBUG
+
+/// Used for developing. You have an immediate preview of the ViewController
+/// If neccesary you could insert data for a more accurate visualization
+
 import SwiftUI
 
 struct ImageDetailVCRepresentable: UIViewControllerRepresentable {
@@ -98,18 +110,3 @@ struct InfoVCPreview: PreviewProvider {
   }
 }
 #endif
-
-extension UIImage {
-  static func withColor(_ color: UIColor, size: CGSize) -> UIImage {
-    var capturedImage: UIImage?
-
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-    if let context = UIGraphicsGetCurrentContext() {
-      context.setFillColor(color.cgColor)
-      context.fill(CGRect(origin: .zero, size: size))
-      capturedImage = UIGraphicsGetImageFromCurrentImageContext()
-    }
-    UIGraphicsEndImageContext()
-    return capturedImage ?? UIImage()
-  }
-}
