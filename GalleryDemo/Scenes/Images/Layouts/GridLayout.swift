@@ -15,7 +15,7 @@ class GridLayout: UICollectionViewLayout {
 
   // MARK: - Propertiess
 
-  weak var delegate: GridLayoutDelegate!
+  weak var delegate: GridLayoutDelegate?
 
   // Layout configuration properties
   fileprivate var numberOfColumns: Int {
@@ -46,7 +46,7 @@ class GridLayout: UICollectionViewLayout {
   override func prepare() {
     super.prepare()
     // Only calculate the layout attributes if cache is empty and the collection view exists
-    guard cache.isEmpty == true, let collectionView = collectionView else {
+    guard cache.isEmpty == true, let collectionView = collectionView, let delegate = delegate else {
       return
     }
     let currentNumberOfColumns = numberOfColumns
