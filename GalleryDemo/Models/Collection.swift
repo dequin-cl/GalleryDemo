@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Model to identify the objects to display
 struct Album: Decodable {
     let albumID, id: Int
     let title: String
@@ -19,6 +20,7 @@ struct Album: Decodable {
     }
 }
 
+/// Model that describes the result from the target JSON API
 struct Collection: Decodable {
   private (set) var albums: [Album]
 

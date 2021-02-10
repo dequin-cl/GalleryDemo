@@ -18,7 +18,12 @@ final class ImageLoader {
     task = URLSessionDownloadTask()
     self.cache = NSCache()
   }
-
+  
+  /// Process a path to download an Image. If the image has not been download before, it adds the result to the cache.
+  /// - Parameters:
+  ///   - imagePath: from where to download the image
+  ///   - vm: the relevant ViewModel
+  ///   - completionHandler: will return the new Image and the ViewModel
   func obtainImageWithPath(imagePath: String, vm: ImageViewModel, completionHandler: @escaping (UIImage, ImageViewModel) -> Void) {
     if let image = self.cache.object(forKey: imagePath as NSString) {
       DispatchQueue.main.async {

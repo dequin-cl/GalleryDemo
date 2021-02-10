@@ -23,7 +23,9 @@ class ImageListCollectionViewController: UIViewController {
 
     configureRefresher()
   }
-
+  
+  /// Initiate the process of getting the relevant data for the app. Once the data is processed, calls the reload process on the Collection
+  /// It may be called more than one time.
   private func getData() {
     Webservice.load { [weak self] albums in
       if let collection = albums {
@@ -37,6 +39,7 @@ class ImageListCollectionViewController: UIViewController {
     }
   }
   
+  /// Defines the layout for the Collection. Mosaic for iPhone, Grid for iPad
   private func configureCollection() {
     if UIDevice.current.userInterfaceIdiom == .pad {
       
@@ -64,6 +67,7 @@ class ImageListCollectionViewController: UIViewController {
     self.view.addSubview(collectionView)
   }
   
+  /// Adds a Refresher control to the Collection
   private func configureRefresher() {
     refresher = UIRefreshControl()
     refresher.tintColor = .white
@@ -71,10 +75,13 @@ class ImageListCollectionViewController: UIViewController {
     collectionView.refreshControl = refresher
   }
   
+  /// Stops the refreshing animation on the Collections' refresher
   private func stopRefresher() {
     collectionView.refreshControl?.endRefreshing()
   }
-
+  
+  /// Utility function associated with the Refresh control.
+  /// Calls the getData function
   @objc private func loadMoreData() {
     getData()
   }
@@ -97,7 +104,6 @@ extension ImageListCollectionViewController: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    // #warning Incomplete implementation, return the number of items
     return imageListVM.numberOfItemsInSection(section)
   }
 

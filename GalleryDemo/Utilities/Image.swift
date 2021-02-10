@@ -8,6 +8,12 @@
 import UIKit
 
 extension UIImage {
+  
+  /// Create a new Image with color and size
+  /// - Parameters:
+  ///   - color: color to apply to the image
+  ///   - size: size that the image have to have
+  /// - Returns: a new image
   static func withColor(_ color: UIColor, size: CGSize) -> UIImage {
     var capturedImage: UIImage?
 

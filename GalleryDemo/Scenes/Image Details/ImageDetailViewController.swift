@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Shows an image Full Screen
 class ImageDetailViewController: UIViewController {
 
   private var imageView = UIImageView()
@@ -26,6 +27,7 @@ class ImageDetailViewController: UIViewController {
     configureProgressBar()
   }
   
+  /// Configure and adds to the hierarchy the ImageView that will display the required image
   private func configureMainImageView() {
     imageView.frame = view.bounds
     imageView.contentMode = .scaleAspectFill
@@ -37,6 +39,7 @@ class ImageDetailViewController: UIViewController {
     view.addSubview(imageView)
   }
   
+  /// Configure and adds to the hierarchy the progress bar used to give feedback to the user that something is happening while downloading the required image
   private func configureProgressBar() {
     progressBar.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(progressBar)
@@ -48,7 +51,10 @@ class ImageDetailViewController: UIViewController {
     
     progressBar.progress = 0.0
   }
-
+  
+  /// Once the required image has been set to the VC, this method will create a dataTask to grab the image from the network
+  /// Will configure the progress observer to update the Progress Bar
+  /// At the end of the network process, will update the contents of the UIImageView
   private func processImageURL() {
     guard let imageURL = imageURL,
           let url = URL(string: imageURL) else { return }
@@ -68,7 +74,9 @@ class ImageDetailViewController: UIViewController {
     }
     task.resume()
   }
-
+  
+  /// Refresh the progress on the Progress Bar
+  /// - Parameter progress: the current progress to show
   private func updateProgress(progress: Double) {
     DispatchQueue.main.async {
 
